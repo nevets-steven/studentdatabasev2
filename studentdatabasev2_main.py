@@ -1,133 +1,73 @@
-# Student Database 2.0
-
-stu_dict_list = [
-    {"name": "Tina", "hometown": "Portland", "favorite_food": "puppy chow"},
-    {"name": "Klaus", "hometown": "Frankfurt", "favorite_food": "pizza"},
-    {"name": "Julia", "hometown": "Houston", "favorite_food": "shrimp"}
-]
-# creating empty list from dictionaries
-names = []
-hometown = []
-favorite_food = []
-
-for s in stu_dict_list:
-    names.append((s['name']))
-    hometown.append((s['hometown']))
-    favorite_food.append((s['favorite_food']))
-
-def list_names(names):
-    for name in range(len(names)):
-        print(str(name+1) + '.', names[name])
-
-def stu_info():
-    name_index = input("Would you like to enter student names or numbers?\n")
-    if name_index == 'names':
-        search = input("Which student would you like to learn more about? Enter a name\n")
-        if search in names:
-            if names.index(search) == 0:
-                print(f"Student 1 is {names[0]}. What would you like to know?")
-                info_select = input("Enter 'hometown' or 'favorite food'")
-                info_select = info_select.lower()
-                if info_select == 'hometown':
-                    print(f"{names[0]} is from {hometown[0]}")
-                elif info_select == 'favorite food':
-                    print(f"{names[0]}'s favorite food is {favorite_food[0]}")
-            elif names.index(search) == 1:
-                print(f"Student 2 is {names[1]}. What would you like to know?")
-                info_select = input("Enter 'hometown' or 'favorite food'")
-                info_select = info_select.lower()
-                if info_select == 'hometown':
-                    print(f"{names[1]} is from {hometown[1]}")
-                elif info_select == 'favorite food':
-                    print(f"{names[1]}'s favorite food is {favorite_food[1]}")
-            elif names.index(search) == 2:
-                print(f"Student 3 is {names[2]}. What would you like to know?")
-                info_select = input("Enter 'hometown' or 'favorite food'")
-                info_select = info_select.lower()
-                if info_select == 'hometown':
-                    print(f"{names[2]} is from {hometown[2]}")
-                elif info_select == 'favorite food':
-                    print(f"{names[2]}'s favorite food is {favorite_food[2]}")
-            else:
-                print(f"Student 4 is {names[3]}. What would you like to know?")
-                info_select = input("Enter 'hometown' or 'favorite food'")
-                info_select = info_select.lower()
-                if info_select == 'hometown':
-                    print(f"{names[3]} is from {hometown[3]}")
-                elif info_select == 'favorite food':
-                    print(f"{names[3]}'s favorite food is {favorite_food[3]}")
-        else:
-            print('Please enter a student from the list.')
-    elif name_index == 'numbers':
-        search = input("Which student would you like to learn more about? Enter a number\n")
-        if search == '1':
-            print(f"Student 1 is {names[0]}. What would you like to know?")
-            info_select = input("Enter 'hometown' or 'favorite food'")
-            info_select = info_select.lower()
-            if info_select == 'hometown':
-                print(f"{names[0]} is from {hometown[0]}")
-            elif info_select == 'favorite food':
-                print(f"{names[0]}'s favorite food is {favorite_food[0]}")
-        elif search == '2':
-            print(f"Student 2 is {names[1]}. What would you like to know?")
-            info_select = input("Enter 'hometown' or 'favorite food'")
-            info_select = info_select.lower()
-            if info_select == 'hometown':
-                print(f"{names[1]} is from {hometown[1]}")
-            elif info_select == 'favorite food':
-                print(f"{names[1]}'s favorite food is {favorite_food[1]}")
-        elif search == '3':
-            print(f"Student 3 is {names[2]}. What would you like to know?")
-            info_select = input("Enter 'hometown' or 'favorite food'")
-            info_select = info_select.lower()
-            if info_select == 'hometown':
-                print(f"{names[2]} is from {hometown[2]}")
-            elif info_select == 'favorite food':
-                print(f"{names[2]}'s favorite food is {favorite_food[2]}")
-        elif search == '4':
-            print(f"Student 4 is {names[3]}. What would you like to know?")
-            info_select = input("Enter 'hometown' or 'favorite food'")
-            info_select = info_select.lower()
-            if info_select == 'hometown':
-                print(f"{names[3]} is from {hometown[3]}")
-            elif info_select == 'favorite food':
-                print(f"{names[3]}'s favorite food is {favorite_food[3]}")
-        else:
-            print('Please enter a number in range')
-    else:
-        print("Please enter names or numbers")
 
 
+def list_names(name_list):
+    for name in name_list:
+        print(f'{name_list.index(name)+1}. {name}')
 
-# list_names(names)
 def get_new_student():
+
     stu_name = input("What is the student's name?\n")
     stu_hometown = input("What is the student's hometown?\n")
     stu_favorite_food = input("What is the student's favorite food?\n")
+    if stu_name == '' or stu_hometown == '' or stu_favorite_food == '':
+        print('Please enter values.')
     new_student = {
         'name': stu_name,
         'hometown': stu_hometown,
         'favorite_food': stu_favorite_food
     }
-    names.append(new_student['name'])
-    hometown.append(new_student['hometown'])
-    favorite_food.append(new_student['favorite_food'])
+
     return new_student
 
+stu_dict_list = [
+  { "name": "Tina", "hometown": "Portland", "favorite_food": "puppy chow" },
+  { "name": "Klaus", "hometown": "Frankfurt", "favorite_food": "pizza" },
+  { "name": "Julia", "hometown": "Houston", "favorite_food": "shrimp" }
+]
+def get_names():
+    name_list = []
+    for student_dict in stu_dict_list:
+        values = list(student_dict.values())
+        for name in range(0, len(values), 3):
+            name_list.append(values[name])
+    return name_list
 
-# input code below
+def name_index():
+    more_info = input("Which student would you like to know more about? ").title()
+    for students in stu_dict_list:
+        if more_info == students['name']:
+            print(f'Student {stu_dict_list.index(students)+1} is {more_info} and their\n'
+                  f'favorite food is {students["favorite_food"]} and they are from {students["hometown"]}.')
+        else:
+            print('Please enter a correct value.')
+            break
+
 switch = True
 while switch == True:
-    selection = input("Please select which action you'd like to do: add, view, or quit\n")
-    selection = selection.lower()
-    if selection == 'add':
+    selection = input("Please select the action you'd like to do: add, view, or quit.\n").lower()
+    if(selection == 'add'):
         stu_dict_list.append(get_new_student())
+
     elif selection == 'view':
-        list_names(names)
-        stu_info()
+        list_names(get_names())
+        name_search = input("Would you like to search by name? (y/n) ").lower()
+        while name_search == 'y':
+            name_index()
+            choice = input('Would you like to search by name again? (y/n) ').lower()
+            if choice == 'n':
+                break
+        else:
+            more_info = int(input(f'Which student would like to know more about? Enter 1 - {len(get_names())}\n'))
+            if more_info in range(len(get_names())+1):
+                print(f'Student {more_info} is {get_names()[more_info-1]}. What would you like to know?')
+                category = input('Enter "hometown" or "favorite food" ').lower()
+                if category == 'hometown':
+                    print(f"{get_names()[more_info-1]} is from {stu_dict_list[more_info-1][category]}")
+                elif category == 'favorite food' or category == 'food':
+                    print(f"{get_names()[more_info-1]}'s favorite food is {stu_dict_list[more_info]['favorite_food']}")
+
     elif selection == 'quit':
-        print("Thank you. <END PROGRAM>")
-        switch = False
+        print('Thank you. <END PROGRAM>')
         break
     else:
-        print("Invalid selection, please enter a value given")
+        print("Please enter a valid action.")
